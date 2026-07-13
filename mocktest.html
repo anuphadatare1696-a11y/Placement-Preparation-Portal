@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mock Test</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+    <h2>PlacementPrep</h2>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="courses.html">Courses</a></li>
+        <li><a href="mocktest.html">Mock Test</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
+
+<section class="mock">
+    <h2>Mock Tests</h2>
+    <div class="course-box">
+        <h3>Aptitude Test</h3>
+        <button onclick="startTest()">startTest</button>
+    </div>
+
+    <div class="course-box">
+        <h3>C Programming Test</h3>
+        <button onclick="startTest()">startTest</button>
+    </div>
+
+    <div class="course-box">
+        <h3>Java Test</h3>
+        <button onclick="startTest()">start Test</button>
+    </div>
+    
+    <div id="quiz" style="display:none;">
+
+    <h3 id="question"></h3>
+
+    <button id="option1" onclick="checkAnswer(0)"></button><br><br>
+
+    <button id="option2" onclick="checkAnswer(1)"></button><br><br>
+
+    <button id="option3" onclick="checkAnswer(2)"></button><br><br>
+
+    <button id="option4" onclick="checkAnswer(3)"></button><br><br>
+
+    <button onclick="nextQuestion()">Next</button>
+
+</div>
+<div id="result" style="display:none; margin-top:20px;">
+    <h2>Test Completed!</h2>
+    <p id="finalScore"></p>
+    <button onclick="goHome()">Back to Home</button>
+</div>
+</section>
+
+<script>
+const questions = [
+{
+    question: "Which language is used for web page structure?",
+    options: ["HTML", "Java", "Python", "C++"],
+    answer: "HTML"
+},
+{
+    question: "Which language is used for styling web pages?",
+    options: ["CSS", "Java", "Python", "C"],
+    answer: "CSS"
+},
+{
+    question: "Which language makes a website interactive?",
+    options: ["JavaScript", "HTML", "CSS", "SQL"],
+    answer: "JavaScript"
+}
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+function startTest(){
+
+    document.getElementById("quiz").style.display = "block";
+
+    document.getElementById("question").innerHTML =
+        questions[currentQuestion].question;
+
+    document.getElementById("option1").innerHTML =
+        questions[currentQuestion].options[0];
+
+    document.getElementById("option2").innerHTML =
+        questions[currentQuestion].options[1];
+
+    document.getElementById("option3").innerHTML =
+        questions[currentQuestion].options[2];
+
+    document.getElementById("option4").innerHTML =
+        questions[currentQuestion].options[3];
+
+        document.getElementById("option1").onclick = () => checkAnswer(questions[currentQuestion].options[0]);
+document.getElementById("option2").onclick = () => checkAnswer(questions[currentQuestion].options[1]);
+document.getElementById("option3").onclick = () => checkAnswer(questions[currentQuestion].options[2]);
+document.getElementById("option4").onclick = () => checkAnswer(questions[currentQuestion].options[3]);
+}
+
+let selectedAnswer = -1;
+
+function checkAnswer(option){
+alert("Option Selected");
+    selectedAnswer = option;
+
+    document.getElementById("option1").style.backgroundColor = "#2563eb";
+    document.getElementById("option2").style.backgroundColor = "#2563eb";
+    document.getElementById("option3").style.backgroundColor = "#2563eb";
+    document.getElementById("option4").style.backgroundColor = "#2563eb";
+
+    document.getElementById("option" + (option + 1)).style.backgroundColor = "green";
+}
+function nextQuestion(){
+
+    if(selectedAnswer == questions[currentQuestion].answer){
+        score++;
+    }
+
+    selectedAnswer = -1;
+    currentQuestion++;
+
+    if(currentQuestion < questions.length){
+
+        document.getElementById("question").innerHTML =
+            questions[currentQuestion].question;
+
+        document.getElementById("option1").innerHTML =
+            questions[currentQuestion].options[0];
+
+        document.getElementById("option2").innerHTML =
+            questions[currentQuestion].options[1];
+
+        document.getElementById("option3").innerHTML =
+            questions[currentQuestion].options[2];
+
+        document.getElementById("option4").innerHTML =
+            questions[currentQuestion].options[3];
+
+    }else{
+
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+
+        document.getElementById("finalScore").innerHTML =
+            "Your Score : " + score + " / " + questions.length;
+    }
+}
+</script>
+
+</body>
+</html>
